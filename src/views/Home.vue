@@ -67,7 +67,9 @@
   };
 
   const tableClick = ($event) => {
-    console.log($event.target);
+    if ($event.target.className) {
+      tokenId.value = generatTokenId();
+    }
   };
 </script>
 

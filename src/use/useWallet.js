@@ -1,5 +1,4 @@
 import { ref, onMounted } from 'vue';
-import 'web3/dist/web3.min.js';
 import ElementABI from '../abi/Element';
 
 export default () => {
