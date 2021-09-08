@@ -43,6 +43,16 @@ a {
       background-color: rgba(127, 255, 255, 0.35);
       color: white;
     }
+
+    &[disabled] {
+      cursor: not-allowed;
+      pointer-events: all !important;
+
+      &:hover {
+        background-color: inherit;
+        color: rgba(127, 255, 255, 0.75);
+      }
+    }
   }
 }
 .element {

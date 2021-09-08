@@ -20,13 +20,13 @@
         class="token-id-input"
         placeholder="Input tokenId 0~6665"
       />
-      <button class="mint" @click="mintHandler">Mint Element</button>
+      <button class="mint" @click="mintHandler" :disabled="minting">{{ mintBtnText }}</button>
     </div>
   </div>
 </template>
 
 <script setup>
-  import { onBeforeUnmount, onMounted, ref } from 'vue';
+  import { onBeforeUnmount, onMounted, ref, computed } from 'vue';
   import usePeriodic from '../use/usePeriodic';
   import useWallet from '../use/useWallet';
 
@@ -35,6 +35,7 @@
   const { removeHandler, init, mintAnimation, initPosition } = usePeriodic();
   const { mint, generatTokenId } = useWallet();
   const tokenId = ref('');
+  const minting = ref(false);
 
   onMounted(() => {
     init();
@@ -45,11 +46,14 @@
     removeHandler();
   });
 
+  const mintBtnText = computed(() => (minting.value ? 'Minting...' : 'Mint Element'));
+
   const mintHandler = () => {
     if (!tokenId.value) return alert('Choose a TokenId');
     if (tokenId.value < 0 || tokenId.value > 6665) return alert('TokenId range is in 0~6665');
 
     mintAnimation();
+    minting.value = true;
     mint(tokenId.value)
       .then((res) => {
         if (res.status) {
@@ -63,6 +67,7 @@
       })
       .finally(() => {
         initPosition();
+        minting.value = false;
       });
   };
 
@@ -76,19 +81,15 @@
 <style lang="less" scoped>
   .home {
     .text {
-      position: absolute;
-      left: 50%;
-      top: 100px;
-      width: 600px;
-      margin-left: -500px;
-      font-size: 24px;
-      z-index: 100;
+      width: 1000px;
+      font-size: 36px;
 
       p {
         padding: 10px;
         background-color: transparent;
         color: rgba(127, 255, 255, 0.75);
         line-height: 1.4;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.35);
       }
     }
     .periodic-table {

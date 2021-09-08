@@ -55,6 +55,12 @@ export default () => {
   function initObjects() {
     simpleObjectsLayout();
     generateGeometricLayouts();
+
+    const text = new CSS3DObject(document.querySelector('.text'));
+    console.log(text);
+    text.position.x = -350;
+    text.position.y = 650;
+    scene.add(text);
   }
 
   function simpleObjectsLayout() {
