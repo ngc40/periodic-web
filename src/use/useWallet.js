@@ -40,6 +40,11 @@ export default () => {
     account,
     mint,
 
+    connect: async () => {
+      if (account.value) return;
+      [account.value] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    },
+
     shortCutOfAccountHash,
     generatTokenId,
   };

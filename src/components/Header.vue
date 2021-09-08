@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="header-container">
-      <div class="wallet">
+      <div class="wallet" @click="connect">
         {{ shortCutOfAccountHash(account) || 'connect wallet' }}
       </div>
     </div>
@@ -10,14 +10,14 @@
 
 <script setup>
   import useWallet from '../use/useWallet';
-  const { account, shortCutOfAccountHash } = useWallet();
+  const { account, shortCutOfAccountHash, connect } = useWallet();
 </script>
 
 <style lang="less" scoped>
   header {
     display: flex;
     position: absolute;
-    z-index: 100;
+    z-index: 200;
     top: 20px;
     align-items: center;
     width: 100%;
