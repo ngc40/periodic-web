@@ -1,5 +1,6 @@
 import { ref, onMounted } from 'vue';
 import ElementABI from '../abi/Element';
+import detectEthereumProvider from '@metamask/detect-provider';
 
 export default () => {
   const mint = (tokenId = '') => {
@@ -14,8 +15,14 @@ export default () => {
   const account = ref('');
 
   onMounted(async () => {
-    chainId.value = await window.ethereum.request({ method: 'eth_chainId' });
-    [account.value] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const provider = await detectEthereumProvider();
+
+    if (provider) {
+      chainId.value = provider.chainId;
+      account.value = provider.selectedAddress;
+    } else {
+      alert('Please Install MetaMask!');
+    }
 
     window.ethereum.on('chainChanged', () => {
       window.location.reload();
