@@ -1,7 +1,18 @@
 <template>
   <div class="home">
     <quark-header></quark-header>
-    <div class="periodic-table" id="container"></div>
+    <div class="text">
+      <p>
+        Our elements for Metaverse are chemical elements, that are randomly generated and stored on
+        the blockchain. You can combine these elements in arbitrary ways.
+      </p>
+      <p>
+        Using scientific knowledge or your imagination, you can acquire new props by combining those
+        elements, and some of these props has magic skills.
+      </p>
+      <p>With these powerful elements, you can do whatever and go anywhere you want.</p>
+    </div>
+    <div class="periodic-table" id="container" @click="tableClick($event)"></div>
     <div id="menu">
       <input
         type="text"
@@ -9,7 +20,7 @@
         class="token-id-input"
         placeholder="Input tokenId 0~6665"
       />
-      <button class="mint" @click="mintHandler">MINT Element</button>
+      <button class="mint" @click="mintHandler">Mint Element</button>
     </div>
   </div>
 </template>
@@ -22,11 +33,12 @@
   import QuarkHeader from '../components/Header.vue';
 
   const { removeHandler, init, mintAnimation, initPosition } = usePeriodic();
-  const { mint } = useWallet();
+  const { mint, generatTokenId } = useWallet();
   const tokenId = ref('');
 
   onMounted(() => {
     init();
+    tokenId.value = generatTokenId();
   });
 
   onBeforeUnmount(() => {
@@ -53,10 +65,30 @@
         initPosition();
       });
   };
+
+  const tableClick = ($event) => {
+    console.log($event.target);
+  };
 </script>
 
 <style lang="less" scoped>
   .home {
+    .text {
+      position: absolute;
+      left: 50%;
+      top: 100px;
+      width: 600px;
+      margin-left: -500px;
+      font-size: 24px;
+      z-index: 100;
+
+      p {
+        padding: 10px;
+        background-color: transparent;
+        color: rgba(127, 255, 255, 0.75);
+        line-height: 1.4;
+      }
+    }
     .periodic-table {
       width: 100%;
       min-height: 100vh;

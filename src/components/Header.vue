@@ -18,9 +18,10 @@
     display: flex;
     position: absolute;
     z-index: 100;
-    top: 10px;
+    top: 20px;
     align-items: center;
     width: 100%;
+    height: 42px;
 
     .header-container {
       display: flex;
@@ -37,7 +38,6 @@
     .wallet {
       background-color: rgba(0, 127, 127, 0.5);
       color: white;
-      text-shadow: 0 0 10px rgb(0 255 255 / 95%);
       box-shadow: 0px 0px 12px rgb(0 255 255 / 50%);
       font-size: 20px;
       font-weight: bolder;

@@ -15,7 +15,7 @@ export default () => {
     initScene();
     initObjects();
     initRenderer();
-    initTrackbarControls();
+    // initTrackbarControls();
 
     transform(targets.table, 1000);
 
@@ -239,7 +239,7 @@ export default () => {
   function animate() {
     requestAnimationFrame(animate);
     TWEEN.update();
-    controls.update();
+    // controls.update();
   }
 
   return {

@@ -9,14 +9,15 @@ a {
 }
 #menu {
   position: absolute;
-  bottom: 20px;
+  top: 20px;
   width: 100%;
   display: flex;
   justify-content: center;
   gap: 10px;
+  z-index: 100;
 
   .token-id-input {
-    background-color: rgba(127, 255, 255, 0.5);
+    background-color: rgb(20 49 49 / 50%);
     color: white;
     padding: 10px 10px;
     border: 0;
@@ -25,10 +26,17 @@ a {
     font-weight: bolder;
     letter-spacing: 1px;
     font-size: 16px;
+    width: 190px;
 
     &::-webkit-input-placeholder {
       color: rgba(white, 0.8);
     }
+  }
+
+  button {
+    font-size: 20px;
+    background-color: rgb(20 49 49 / 50%);
+    cursor: pointer;
   }
 }
 .element {

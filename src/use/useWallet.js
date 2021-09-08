@@ -4,10 +4,7 @@ import ElementABI from '../abi/Element';
 
 export default () => {
   const mint = (tokenId = '') => {
-    return new window.web3.eth.Contract(
-      ElementABI,
-      '0x6F7ecf0832Da7eAd1F77aeb75f20a00a4dA22194',
-    ).methods
+    return new window.web3.eth.Contract(ElementABI, import.meta.env.VITE_CONTRACT).methods
       .claim(tokenId)
       .send({
         from: window.web3.currentProvider.selectedAddress,
