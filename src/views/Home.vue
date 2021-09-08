@@ -7,7 +7,7 @@
         type="text"
         v-model="tokenId"
         class="token-id-input"
-        placeholder="Input tokenId 1~6666"
+        placeholder="Input tokenId 0~6665"
       />
       <button class="mint" @click="mintHandler">MINT Element</button>
     </div>
@@ -35,7 +35,7 @@
 
   const mintHandler = () => {
     if (!tokenId.value) return alert('Choose a TokenId');
-    if (tokenId.value < 1 || tokenId.value > 6666) return alert('TokenId range in 1~6666');
+    if (tokenId.value < 0 || tokenId.value > 6665) return alert('TokenId range is in 0~6665');
 
     mintAnimation();
     mint(tokenId.value)

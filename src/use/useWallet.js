@@ -6,7 +6,7 @@ export default () => {
   const mint = (tokenId = '') => {
     return new window.web3.eth.Contract(
       ElementABI,
-      '0xfedA54678c5Faae298Ed9701B956c586B3BeFD8f',
+      '0x6F7ecf0832Da7eAd1F77aeb75f20a00a4dA22194',
     ).methods
       .claim(tokenId)
       .send({
@@ -37,7 +37,7 @@ export default () => {
     });
   };
 
-  const generatTokenId = () => Math.ceil(Math.random() * 6666) + 1;
+  const generatTokenId = () => Math.ceil(Math.random() * 6666);
 
   return {
     chainId,
