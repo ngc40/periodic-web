@@ -7,7 +7,7 @@ export default () => {
     return new window.web3.eth.Contract(ElementABI, import.meta.env.VITE_CONTRACT).methods
       .claim(tokenId)
       .send({
-        from: window.web3.currentProvider.selectedAddress,
+        from: window.ethereum.selectedAddress,
       });
   };
 
