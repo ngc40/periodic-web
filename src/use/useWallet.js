@@ -3,7 +3,20 @@ import ElementABI from '../abi/Element';
 import detectEthereumProvider from '@metamask/detect-provider';
 
 export default () => {
-  const mint = (tokenId = '') => {
+  const installMetaMask = () => {
+    if (!window.ethereum) {
+      window.open(
+        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+        '_blank',
+      );
+      return Promise.reject({ message: 'Please Install MetaMask!' });
+    } else {
+      return Promise.resolve();
+    }
+  };
+
+  const mint = async (tokenId = '') => {
+    await installMetaMask();
     const web3Object = new Web3(window.ethereum);
 
     return new web3Object.eth.Contract(ElementABI, import.meta.env.VITE_CONTRACT).methods
@@ -22,17 +35,15 @@ export default () => {
     if (provider) {
       chainId.value = provider.chainId;
       account.value = provider.selectedAddress;
-    } else {
-      alert('Please Install MetaMask!');
+
+      window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+      });
+
+      window.ethereum.on('accountsChanged', (accounts) => {
+        account.value = accounts[0] || '';
+      });
     }
-
-    window.ethereum.on('chainChanged', () => {
-      window.location.reload();
-    });
-
-    window.ethereum.on('accountsChanged', (accounts) => {
-      account.value = accounts[0] || '';
-    });
   });
 
   const shortCutOfAccountHash = (hash) => {
@@ -49,6 +60,7 @@ export default () => {
     mint,
 
     connect: async () => {
+      await installMetaMask();
       if (account.value) return;
       [account.value] = await window.ethereum.request({ method: 'eth_requestAccounts' });
     },
