@@ -4,7 +4,9 @@ import detectEthereumProvider from '@metamask/detect-provider';
 
 export default () => {
   const mint = (tokenId = '') => {
-    return new window.web3.eth.Contract(ElementABI, import.meta.env.VITE_CONTRACT).methods
+    const web3Object = new Web3(window.ethereum);
+
+    return new web3Object.eth.Contract(ElementABI, import.meta.env.VITE_CONTRACT).methods
       .claim(tokenId)
       .send({
         from: window.ethereum.selectedAddress,
@@ -31,7 +33,6 @@ export default () => {
     window.ethereum.on('accountsChanged', (accounts) => {
       account.value = accounts[0] || '';
     });
-    window.web3 = new Web3(window.ethereum);
   });
 
   const shortCutOfAccountHash = (hash) => {
