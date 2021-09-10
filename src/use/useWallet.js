@@ -47,9 +47,11 @@ export default () => {
   });
 
   const shortCutOfAccountHash = (hash) => {
-    return hash.replace(/^0x\w{4}(.*)\w{4}$/, (match, p1, offset, string) => {
-      return string.replace(p1, '...');
-    });
+    return typeof hash === 'string'
+      ? hash.replace(/^0x\w{4}(.*)\w{4}$/, (match, p1, offset, string) => {
+          return string.replace(p1, '...');
+        })
+      : '';
   };
 
   const generatTokenId = () => Math.ceil(Math.random() * 6666);
